@@ -5,12 +5,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import www.fanfan.pub.qaassignment3.data.TroopContract.TroopList;
 /**
  * Created by FM on 12/7/2015.
  */
 public class TroopDbHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "troopList.db";
     public TroopDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,8 +25,9 @@ public class TroopDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Create a table
         final String SQL_CREATE_TroopList_TABLE = "CREATE TABLE " + TroopList.TABLE_NAME + " (" +
-                TroopList._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                TroopList.COLUMN_PLANT+ " REAL NOT NULL " +
+        TroopList._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                TroopList.COLUMN_PLANT+ " REAL NOT NULL, " +
+                TroopList.CREATED_AT +" DATETIME DEFAULT CURRENT_TIMESTAMP "+
                 " );";
         sqLiteDatabase.execSQL(SQL_CREATE_TroopList_TABLE);
 
@@ -35,12 +41,11 @@ public class TroopDbHelper extends SQLiteOpenHelper {
     public void insert(String planets){
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
-
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         //values.put(TroopList._ID, id);
         values.put(TroopContract.TroopList.COLUMN_PLANT, planets);
-
+        values.put(TroopList.CREATED_AT, getDateTime());
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
         newRowId = db.insert(
@@ -70,6 +75,13 @@ public class TroopDbHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
         //cursor.close();
         return cursor.getCount();
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 }

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     void shootMessage(View view, String planets) {
         //final String s1= "let's kill all";
-        Snackbar.make(view, "the number of " + mDbHelper.getCountAll() + " STORMTROOPER has been sent to "
+        Snackbar.make(view, "The number of " + mDbHelper.getCountAll() + " STORMTROOPER has been sent to "
                 + planets, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == bespin) {
-
             mDbHelper.insert(planets[I_BESPIN]);
             shootMessage(view, planets[I_BESPIN]);
             t_bespin.setText(countTroop(planets[I_BESPIN]));
