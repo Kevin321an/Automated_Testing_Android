@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivity> {
     public ApplicationTest() {
         super(MainActivity.class);
@@ -29,7 +26,6 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
 
         setActivityInitialTouchMode(true);
         mClickActvity = getActivity();
-        //mButton = (android.support.design.widget.FloatingActionButton) mClickActvity.findViewById(R.id.fab);
         bespin = (ImageButton) mClickActvity.findViewById(R.id.bespin);
         dagoban = (ImageButton) mClickActvity.findViewById(R.id.dagoban);
         tatooine = (ImageButton) mClickActvity.findViewById(R.id.tatooine);
@@ -45,7 +41,7 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
 
     @MediumTest
     public void testClick(){
-     /*   int priorNumber = Integer.parseInt( mTextView.getText().toString());*/
+
         for (int i= 0; i<999999999;i++){
             int index = new Random().nextInt(5);
             Log.d("radom number", Integer.toString(index));
@@ -63,10 +59,6 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
 
             }
 
-
-          /*  priorNumber++;
-            int newNumber = Integer.parseInt( mTextView.getText().toString());
-            assertEquals(priorNumber, newNumber);*/
         }
 
     }
